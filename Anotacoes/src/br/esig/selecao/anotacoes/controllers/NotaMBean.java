@@ -11,7 +11,11 @@ import br.esig.selecao.anotacoes.dominio.Nota;
 import br.esig.selecao.anotacoes.repositorio.NotaRepositorio;;
 
 
-
+/**
+ * ManageBean de Notas
+ * @author aroldo-felix
+ *
+ */
 @Named("notaMBean")
 @SessionScoped
 public class NotaMBean implements Serializable {
@@ -21,38 +25,58 @@ public class NotaMBean implements Serializable {
 	private Nota nota;
 	private DataModel<Nota> notasModel;
 	
-	
 	public NotaMBean() {
 		nota = new Nota();
 	}
-	
+	/**
+	 * Cadastrar uma nova nota
+	 * @return formulário para cadastrar a nota
+	 */
 	public String novaNota() { 
-		nota = new Nota();
+		setNota(new Nota());
 		return "/pages/form.jsf";
 	}
 	
+	/**
+	 * Listar todas as notas
+	 * @return página com todas as notas listadas
+	 */
 	public String listarNotas() { // C(R)UD
-		notasModel = new ListDataModel<Nota>(NotaRepositorio.listarNotas());
+		setNotasModel(new ListDataModel<Nota>(NotaRepositorio.listarNotas()));
 		return "/pages/list.jsf";
 	}
 	
+	/**
+	 * Persistir uma nota (Criar ou Atualizar)
+	 * @return formulário para cadastro de uma nova nota
+	 */
 	public String cadastrarNota() { // (C)RUD
 		NotaRepositorio.salvar(nota);
 		return novaNota();
 	}
 	
+	/**
+	 * Remover uma nota
+	 * @return página com todas as notas listadas
+	 */
 	public String removerNota() { // CRU(D)
-		Nota notaRemovida = notasModel.getRowData();
+		Nota notaRemovida = getNotasModel().getRowData();
 		NotaRepositorio.remover(notaRemovida);
 		return listarNotas();
 	}
 	
+	/**
+	 * Editar uma nota
+	 * @return Formulário preenchido com as informações da nota que se deseja editar
+	 */
 	public String editarNota() { // CR(U)D
-		nota = notasModel.getRowData();
+		setNota(getNotasModel().getRowData());
 		
 		return "/pages/form.jsf";
 	}
 
+	// Métodos Getters e Setters
+	
 	public Nota getNota() {
 		return nota;
 	}

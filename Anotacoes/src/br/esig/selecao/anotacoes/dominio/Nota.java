@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 /**
- * Classe Nota para guardar algumas anotações, elas têm id, título, descrição, data de cadastro e data da ultima edição
+ * Classe POJO Nota para guardar algumas anotações, elas têm id, título, descrição, data de cadastro e data da ultima edição
  * 
  * @author aroldo-felix
  */

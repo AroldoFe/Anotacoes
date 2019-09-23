@@ -11,10 +11,16 @@ import org.junit.Test;
 
 import br.esig.selecao.anotacoes.dominio.Nota;
 import br.esig.selecao.anotacoes.repositorio.NotaRepositorio;
-
+/**
+ * Classe de testes para o Repositorio de Notas
+ * @author aroldo-felix
+ * Error: Ao rodar com JUnit, a classe NotaRepositorio não consegue ser instanciada
+ */
 public class NotaRepositorioTest {
 	private Nota nota;
-	
+	/**
+	 * Perapara o banco antes de cada Teste adicionando uma nota
+	 */
 	@Before
 	public void setUp() {
 		nota = new Nota();
@@ -24,7 +30,10 @@ public class NotaRepositorioTest {
 	}
 	
 	// Testes para o método adicionar
-	
+	/**
+	 * Saber se a nota foi inserida
+	 * @throws SQLException
+	 */
 	@Test
 	public void testAdicionar() throws SQLException {
 		Nota notaRepo = NotaRepositorio.procurar(nota);
@@ -37,6 +46,10 @@ public class NotaRepositorioTest {
 					);
 	}
 	
+	/**
+	 * Saber se o título foi atualizado
+	 * @throws SQLException
+	 */
 	@Test
 	public void testAtualizarTitulo() throws SQLException {
 		// Após inserida, vamos alterar
@@ -53,6 +66,10 @@ public class NotaRepositorioTest {
 				);
 	}
 	
+	/**
+	 * Saber se a descrição foi atualizada
+	 * @throws SQLException
+	 */
 	@Test
 	public void testAtualizarDescricao() throws SQLException {
 		// Após inserida, vamos alterar
@@ -69,6 +86,10 @@ public class NotaRepositorioTest {
 				);
 	}
 	
+	/**
+	 * Saber se a nota foi removida
+	 * @throws SQLException
+	 */
 	@Test
 	public void testRemover() throws SQLException {
 		NotaRepositorio.remover(nota);
@@ -76,18 +97,29 @@ public class NotaRepositorioTest {
 		assertNull(notaRepo);
 	}
 	
+	/**
+	 * Saber se consegue recuperar uma nota
+	 * @throws SQLException
+	 */
 	@Test
 	public void testRecuperar() throws SQLException {
 		Nota notaRepo = NotaRepositorio.procurar(nota);
 		assertEquals(nota, notaRepo);
 	}
 	
+	/**
+	 * Saber se consegue listar as notas
+	 * @throws SQLException
+	 */
 	@Test
 	public void testListar() throws SQLException {
 		List<Nota> notas = NotaRepositorio.listarNotas();
 		assertNotNull(notas);
 	}
 	
+	/**
+	 * Remover a nota após cada caso de teste
+	 */
 	@After
 	public void limpar()
 	{
