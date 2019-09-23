@@ -37,7 +37,7 @@ public class NotaMBean implements Serializable {
 	}
 	
 	public String cadastrarNota() { // (C)RUD
-		NotaRepositorio.adicionar(nota);
+		NotaRepositorio.salvar(nota);
 		return novaNota();
 	}
 	

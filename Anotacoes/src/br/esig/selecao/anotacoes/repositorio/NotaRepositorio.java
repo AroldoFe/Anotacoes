@@ -11,6 +11,15 @@ import javax.persistence.Persistence;
 import br.esig.selecao.anotacoes.dominio.Nota;
 
 public class NotaRepositorio {
+	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("Anotacoes");
+	private static EntityManager entityManager = factory.createEntityManager();
+	
+	public NotaRepositorio() {
+		if(factory == null) {
+			factory = Persistence.createEntityManagerFactory("Anotacoes");
+			entityManager = factory.createEntityManager();
+		}
+	}
 	
 	private static Date getTodaysDate() {
 		LocalDate now = LocalDate.now();
@@ -20,41 +29,44 @@ public class NotaRepositorio {
 	
 	private static int getLastId() {
 		List<Nota> notas = listarNotas();
-		if(!notas.isEmpty()) {
-			return notas.get(notas.size()-1).getId() + 1;
-		}else {
-			return 0;
+		int maiorId = 0;
+		
+		for(Nota nota: notas) {
+			if(maiorId <= nota.getId()) {
+				maiorId = nota.getId()+1;
+			}
+		}
+		return maiorId;
+	}
+	
+	public static void salvar(Nota nota) {
+		if(nota.getId() == null) {
+			adicionar(nota);
+		} else {
+			atualizar(nota);
 		}
 	}
 	
-	public static void adicionar(Nota nota) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Anotacoes");
-		EntityManager entityManager = factory.createEntityManager();
-		
+	public static void adicionar(Nota nota) {		
 		entityManager.getTransaction().begin();
 		
-		//Nota notaBD = entityManager.find(Nota.class, nota.getId());
-		Nota notaBD = null;
-		
-		if(notaBD == null) { // Is not in database
-			nota.setId(getLastId());
-			nota.setDataCadastro(getTodaysDate());	
-			entityManager.persist(nota);
-		}
-//		} else {
-//			nota.setDataUltimaEdicao(getTodaysDate());
-//			entityManager.merge(nota);
-//		}
+		nota.setId(getLastId());
+		nota.setDataCadastro(getTodaysDate());	
+		entityManager.persist(nota);
 		
 		entityManager.getTransaction().commit();
-		entityManager.close();
-		factory.close();
+	}
+	
+	public static void atualizar(Nota nota) {
+		entityManager.getTransaction().begin();
+		
+		nota.setDataUltimaEdicao(getTodaysDate()); 
+		entityManager.merge(nota); 
+		
+		entityManager.getTransaction().commit();
 	}
 	
 	public static void remover(Nota nota) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Anotacoes");
-		EntityManager entityManager = factory.createEntityManager();
-		
 		entityManager.getTransaction().begin();
 		
 		Nota removerNota = entityManager.find(Nota.class, nota.getId());
@@ -62,32 +74,17 @@ public class NotaRepositorio {
 			entityManager.remove(removerNota);
 		}
 		entityManager.getTransaction().commit();
-		
-		entityManager.close();
-		factory.close();
 	}
 	
 	public static Nota procurar(Nota nota) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Anotacoes");
-		EntityManager entityManager = factory.createEntityManager();
-		
 		Nota notaBD = entityManager.find(Nota.class, nota.getId());
-		
-		entityManager.close();
-		factory.close();
 		
 		return notaBD;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static List<Nota> listarNotas(){
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Anotacoes");
-		EntityManager entityManager = factory.createEntityManager();
-		
 		List<Nota> notas = entityManager.createQuery("FROM " + Nota.class.getName()).getResultList();
-		
-		entityManager.close();
-		factory.close();
 		
 		return notas; 
 	}

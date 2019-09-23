@@ -6,31 +6,31 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * Classe Nota para guardar algumas anotações, elas têm id, título, descrição, data de cadastro e data da ultima edição
+ * 
+ * @author aroldo-felix
+ */
 @Table(name = "nota", schema = "public")
 @Entity
 public class Nota {
 
 	@Id
-	@Column//(name = "id", nullable = false)
-	private int id;
-	
-	@Column//(name = "titulo", nullable = false)
+	@Column
+	private Integer id;
+	@Column
 	private String titulo;
-	
-	@Column//(name = "descricao", nullable = false)
+	@Column
 	private String descricao;
-	
-	@Column//(name = "dataCadastro", nullable = false)
+	@Column
 	private Date dataCadastro;
-	
-	@Column//(name = "dataUltimaEdicao", nullable = true)
+	@Column
 	private Date dataUltimaEdicao;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getTitulo() {
