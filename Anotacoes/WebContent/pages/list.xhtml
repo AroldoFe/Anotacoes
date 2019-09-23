@@ -2,12 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/include/template.xhtml">
+	xmlns:b="http://bootsfaces.net/ui"
+	template="/include/template.xhtml"
+	>
 	
 	<ui:define name="conteudo">
 		<h4> Listagem de Notas </h4>
 		
-		<h:form>
+		<h:form >
 			<h:dataTable value="#{notaMBean.notasModel}" var="nota">
 				<h:column>
 					<f:facet name="header">Título</f:facet>

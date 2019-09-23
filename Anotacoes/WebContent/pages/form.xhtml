@@ -2,6 +2,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
 	template="/include/template.xhtml">
 	
 	<ui:define name="conteudo">
@@ -11,10 +12,10 @@
 		<h:form>
 			<fieldset>
 				<p>Título </p> 
-				<p><h:inputText value="#{notaMBean.nota.titulo}" required="true" requiredMessage="Título obrigatório"/></p>
+				<p><h:inputText value="#{notaMBean.nota.titulo}" required="true" requiredMessage="Título obrigatório" placeholder="Título da nota"/></p>
 				
 				<p>Descrição </p>
-				<p><h:inputText value="#{notaMBean.nota.descricao}" required="true" requiredMessage="Descrição obrigatória"/></p>
+				<p><h:inputText value="#{notaMBean.nota.descricao}" required="true" requiredMessage="Descrição obrigatória" placeholder="Descrição da nota"/></p>
 				
 				<p>
 					<h:commandButton action="#{notaMBean.cadastrarNota}" value="Salvar"/>
