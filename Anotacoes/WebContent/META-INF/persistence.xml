@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="nota" transaction-type="JTA">
+		<jta-data-source>java:/NotaDS</jta-data-source>
+		<!-- <class>br.esig.selecao.anotacoes.dominio.Nota</class> -->
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2dd1.auto" value="update"/>
+			<property name="hibernate.connection.charSet" value="UTF-8"/>
+		</properties>
+		<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
+	</persistence-unit>
+</persistence>

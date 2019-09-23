@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/include/template.xhtml">
+	
+	<ui:define name="conteudo">
+		<h:messages/>
+		<h4> Operações </h4>
+		
+		<h:form>
+			<fieldset>
+				<p>Título </p> 
+				<p><h:inputText value="#{notaMBean.nota.titulo}" required="true" requiredMessage="Título obrigatório"/></p>
+				
+				<p>Descrição </p>
+				<p><h:inputText value="#{notaMBean.nota.descricao}" required="true" requiredMessage="Descrição obrigatória"/></p>
+				
+				<p>
+					<h:commandButton action="#{notaMBean.cadastrarNota}" value="Salvar"/>
+					<h:commandButton action="#{notaMBean.listarNotas}" value="Listagem" immediate="true"/>
+				</p>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

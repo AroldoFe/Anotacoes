@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/include/template.xhtml">
+	
+	<ui:define name="conteudo">
+		<h4> Listagem de Notas </h4>
+		
+		<h:form>
+			<h:dataTable value="#{notaMBean.notasModel}" var="nota">
+				<h:column>
+					<f:facet name="header">Título</f:facet>
+					<h:outputText value="#{nota.titulo}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Descrição</f:facet>
+					<h:outputText value="#{nota.descricao}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data de Criação</f:facet>
+					<h:outputText value="#{nota.dataCadastro}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Última Edição</f:facet>
+					<h:outputText value="#{nota.dataUltimaEdicao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<h:commandButton action="#{notaMBean.editarNota}" value="Editar"/>
+				</h:column>
+				<h:column>
+					<h:commandButton action="#{notaMBean.removerNota}" value="Remover"/>
+				</h:column>
+			</h:dataTable>
+			<h:commandButton action="#{notaMBean.novaNota}" value="Novo Cadastro"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
